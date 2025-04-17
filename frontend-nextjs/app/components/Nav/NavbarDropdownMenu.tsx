@@ -135,26 +135,6 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                             <span>{isKids ? "Elato for Hobbyists" : "Elato for Kids"}</span>
                         </Link>
                     </DropdownMenuItem> */}
-                    <DropdownMenuItem>
-                        <Link
-                            href={docsLink}
-                            passHref
-                            className="flex flex-row gap-2 w-full"
-                        >
-                            <BookOpen size={ICON_SIZE} />
-                            <span>Docs</span>
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Link
-                            href={businessDemoLink}
-                            passHref
-                            className="flex flex-row gap-2 w-full"
-                        >
-                            <CalendarCheck size={ICON_SIZE} />
-                            <span>Business Demo</span>
-                        </Link>
-                    </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuItem>
                     <Link
@@ -166,12 +146,7 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                     >
                         <FaGithub size={ICON_SIZE} />
                         <span>GitHub</span>
-                        {stars && (
-                            <div className="flex items-center gap-1 rounded-lg bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                                <span>{stars.toLocaleString()}</span>
-                                <Star size={12} fill="currentColor" />
-                            </div>
-                        )}
+                       
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>

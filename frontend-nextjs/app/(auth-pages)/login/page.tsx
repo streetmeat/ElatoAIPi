@@ -101,12 +101,9 @@ export default async function Login({ searchParams }: LoginProps) {
             />
           )}
 
-           {/* <Separator className="mt-2" />
-           <div className="flex flex-row gap-2 items-center w-full h-[300px] mx-auto relative rounded-xl overflow-hidden"> 
-            <Image src="/teddy.png" alt="Elato Login" fill className="object-cover" />
-           </div> */}
+           <Separator className="mt-2" />
          
-          {/*<form className="flex-1 flex flex-col w-full justify-center gap-4">
+          <form className="flex-1 flex flex-col w-full justify-center gap-4">
             <Label className="text-md" htmlFor="email">
               Email
             </Label>
@@ -147,7 +144,7 @@ export default async function Login({ searchParams }: LoginProps) {
                 {searchParams.message}
               </p>
             )}
-          </form> */}
+          </form>
         </CardContent>
       </Card>
     </div>

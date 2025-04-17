@@ -2,11 +2,14 @@ import Link from "next/link"
 import { ChevronRight, Zap, Star, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import VideoPlayer from "./components/LandingPage/VideoPlayer"
-import { DEVICE_COST, SUBSCRIPTION_COST, videoSrc, videoSrc2, videoSrc3, videoSrc4 } from "@/lib/data";
+import { DEVICE_COST, discordInviteLink, SUBSCRIPTION_COST, tiktokLink, videoSrc, videoSrc2, videoSrc3, videoSrc4 } from "@/lib/data";
 import { createClient } from "@/utils/supabase/server"
 import { getAllPersonalities } from "@/db/personalities"
 import { CharacterShowcase } from "./components/LandingPage/CharacterShowcase";
 import { CreateCharacterShowcase } from "./components/LandingPage/CreateCharacterShowcase";
+import { FaDiscord, FaTiktok } from "react-icons/fa";
+import ProductsSection from "./components/LandingPage/ProductsSection";
+import Image from "next/image";
 
 export default async function LandingPage() {
   const supabase = createClient();
@@ -18,21 +21,16 @@ export default async function LandingPage() {
         {/* Hero Section */}
         <section className="w-full py-12 md:py-20">
           <div className="container px-4 md:px-6 max-w-screen-lg mx-auto">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="inline-flex w-fit items-center space-x-2 rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700">
-                  <Zap className="h-4 w-4" />
-                  <span>First month FREE!</span>
-                </div>
-
-                <h1 className="text-5xl md:text-6xl font-bold tracking-tighter text-purple-900 leading-tight">
-                  Any AI voice for {" "}
+            <div className="grid gap-6 lg:grid-cols-1 lg:gap-12 items-center">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <h1 className="text-5xl text-center md:text-6xl font-bold tracking-tight text-purple-900" style={{ lineHeight: '1.2' }}>
+               
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">
-                    Your Toys
-                  </span>{" "}
+                  Realtime, Conversational AI
+                  </span>{" "} on ESP32 with Arduino and Edge Functions
                 </h1>
 
-                <p className="text-xl text-gray-600 max-w-[600px]">
+                <p className="text-xl text-gray-600 text-center max-w-[600px]">
                   Attach your <span className="font-silkscreen mx-1">Elato</span> device to any toy or plushie and watch them become AI characters you can talk
                   to!
                 </p>
@@ -61,7 +59,7 @@ export default async function LandingPage() {
                     </Link>
                   </div>
                   
-                  <div className="flex items-center space-x-2 text-amber-500 mb-4">
+                  <div className="flex items-center space-x-2 justify-center text-amber-500 mb-4">
                     <Star className="fill-amber-500" />
                     <Star className="fill-amber-500" />
                     <Star className="fill-amber-500" />
@@ -81,25 +79,42 @@ export default async function LandingPage() {
                     </div> */}
                  
                 </div>
+
+                <div className="flex flex-row gap-2 items-center"> 
+                  <div className="w-full py-8">
+                    <h3 className="text-center text-sm font-medium text-gray-500 mb-6">POWERED BY</h3>
+                    <div className="flex flex-wrap justify-center items-center gap-12">
+                      <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/vercel.png" alt="Vercel" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
+                      </a>
+                      <a href="https://deno.com" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/deno.png" alt="Deno" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
+                      </a>
+                      <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/supabase.png" alt="Supabase" width={100} height={24} style={{ height: '48px', width: 'auto' }} />
+                      </a>
+                      <a href="https://arduino.cc" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/arduino.png" alt="Arduino" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
+                      </a>
+                      <a href="https://espressif.com" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/espressif.png" alt="Espressif ESP32" width={100} height={24} style={{ height: '24px', width: 'auto' }} />
+                      </a>
+                      <a href="https://platformio.org" target="_blank" rel="noopener noreferrer" className="transition-all">
+                        <Image src="/logos/platformio.png" alt="PlatformIO" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <VideoPlayer sources={[videoSrc, videoSrc2, videoSrc3, videoSrc4]} />
-
             </div>
           </div>
         </section>
 
-        {/* Personalities  */}
-        {/* <Personalities allPersonalities={adultPersonalities} /> */}
+        {/* Products Section */}
+        <ProductsSection />
 
-        {/* Character Showcase */}
-        <CharacterShowcase allPersonalities={adultPersonalities} />
-
-        {/* Create Character Showcase */}
-        <CreateCharacterShowcase />
-
-        {/* How It Works */}
-        <section className="w-full py-12 bg-gradient-to-b from-purple-50 to-white">
+                {/* How It Works */}
+                <section className="w-full py-12 bg-gradient-to-b from-purple-50 to-white">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
@@ -136,57 +151,17 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Pricing */}
-        <section className="w-full py-16 bg-white">
-          <div className="container px-4 md:px-6">
-            <div className="max-w-3xl mx-auto bg-gradient-to-r from-purple-600 to-pink-500 rounded-3xl overflow-hidden shadow-xl">
-              <div className="p-8 md:p-12 text-white text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Get Your <span className="font-silkscreen">Elato</span> Today!</h2>
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-                  <div className="text-5xl md:text-6xl font-bold">${DEVICE_COST}</div>
-                  <div className="text-xl">
-                    <span className="block">One-time purchase</span>
-                    <span className="block text-purple-100">+ ${SUBSCRIPTION_COST}/month after first FREE month<br /> <span className="text-xs">(or use your own OpenAI API key)</span></span>
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
-                  <div className="flex items-start space-x-2">
-                    <div className="bg-white rounded-full p-1 mt-1">
-                      <Zap className="h-4 w-4 text-purple-600" />
-                    </div>
-                    <span>Works with ANY toy or plushie</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="bg-white rounded-full p-1 mt-1">
-                      <Zap className="h-4 w-4 text-purple-600" />
-                    </div>
-                    <span>Create unlimited AI characters</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="bg-white rounded-full p-1 mt-1">
-                      <Zap className="h-4 w-4 text-purple-600" />
-                    </div>
-                    <span>First month subscription FREE</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="bg-white rounded-full p-1 mt-1">
-                      <Zap className="h-4 w-4 text-purple-600" />
-                    </div>
-                    <span>Easy to set up in minutes</span>
-                  </div>
-                </div>
+        {/* Character Showcase */}
+        <CharacterShowcase allPersonalities={adultPersonalities} />
 
-                <Button size="lg" className="bg-white text-purple-600 hover:bg-purple-50 text-lg h-14 px-8">
-                  <Link href={"/products"}>Buy Now</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Create Character Showcase */}
+        <CreateCharacterShowcase />
+
+
 
         {/* Testimonials */}
-        <section className="w-full py-16 bg-purple-50">
+        <section className="w-full py-16  bg-gradient-to-b from-purple-50 to-white">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
@@ -240,6 +215,56 @@ export default async function LandingPage() {
           </div>
         </section>
 
+
+        {/* Pricing */}
+        <section className="w-full py-16 bg-white">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-3xl mx-auto bg-gradient-to-r from-purple-600 to-pink-500 rounded-3xl overflow-hidden shadow-xl">
+              <div className="p-8 md:p-12 text-white text-center">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Get Your <span className="font-silkscreen">Elato</span> Today!</h2>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                  <div className="text-5xl md:text-6xl font-bold">${DEVICE_COST}</div>
+                  <div className="text-xl">
+                    <span className="block">One-time purchase</span>
+                    <span className="block text-purple-100">+ ${SUBSCRIPTION_COST}/month after first FREE month<br /> <span className="text-xs">(or use your own OpenAI API key)</span></span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
+                  <div className="flex items-start space-x-2">
+                    <div className="bg-white rounded-full p-1 mt-1">
+                      <Zap className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <span>Works with ANY toy or plushie</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <div className="bg-white rounded-full p-1 mt-1">
+                      <Zap className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <span>Create unlimited AI characters</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <div className="bg-white rounded-full p-1 mt-1">
+                      <Zap className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <span>First month subscription FREE</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <div className="bg-white rounded-full p-1 mt-1">
+                      <Zap className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <span>Easy to set up in minutes</span>
+                  </div>
+                </div>
+
+                <Button size="lg" className="bg-white text-purple-600 hover:bg-purple-50 text-lg h-14 px-8">
+                  <Link href={"/products"}>Buy Now</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         {/* <section className="w-full py-16 bg-purple-50">
         <FAQ className="bg-purple-50" titleClassName="text-purple-900" />
@@ -247,7 +272,7 @@ export default async function LandingPage() {
         
 
         {/* CTA */}
-        <section className="w-full py-20 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+        {/* <section className="w-full py-20 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Bring Your Toys to Life?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -258,7 +283,7 @@ export default async function LandingPage() {
             </Button>
             <p className="mt-4 text-purple-100">First month subscription FREE, then just ${SUBSCRIPTION_COST}/month <span className="text-xs">(or use your own OpenAI API key)</span></p>
           </div>
-        </section>
+        </section> */}
       </main>
     </div>
   )

@@ -59,13 +59,6 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
                     >
                         <FaGithub className="text-xl" />
                         <p className="hidden sm:flex font-normal">GitHub</p>
-                        <Separator
-                            orientation="vertical"
-                            className="hidden sm:flex"
-                        />
-                        <p className="hidden sm:flex text-xs font-normal">
-                            {stars?.toLocaleString() ?? 498}
-                        </p>
                     </Button>
                 </Link>
             )}

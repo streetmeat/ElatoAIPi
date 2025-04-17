@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Truck, Bird } from "lucide-react";
+import { Truck, Bird, Box } from "lucide-react";
 import ProductImageCarousel from "../components/Order/ProductImageCarousel";
 import Checkout from "../components/Order/Checkout";
 import FAQ from "../components/Order/FAQ";
@@ -9,6 +9,9 @@ import KeyFeatures from "../components/Order/KeyFeatures";
 import { videoSrc, videoSrc2, videoSrc3, videoSrc4 } from "@/lib/data";
 import VideoPlayer from "../components/LandingPage/VideoPlayer";
 import ProductCarousel from "../components/ProductCarousel";
+import YoutubeDemo from "../components/LandingPage/YoutubeDemo";
+import ProductGallery from "../components/LandingPage/ProductGallery";
+
 const SubtitleText =
     "All AI characters packed into one fully assembled compact device that can be added to any object.";
 
@@ -19,7 +22,7 @@ export default function Component() {
             {/* Hero Section */}
             <div className="flex flex-col-reverse gap-6 sm:gap-12 md:flex-row items-start sm:mt-4 mb-16">
                 <div className="w-full md:w-3/5 px-4">
-                    <VideoPlayer sources={[videoSrc, videoSrc2, videoSrc3, videoSrc4]} />
+                <ProductGallery />
                 </div>
                 <div className="md:w-2/5 px-6 mt-6">
                     <div className="flex flex-row items-center gap-2 mb-4">
@@ -27,13 +30,13 @@ export default function Component() {
                             variant="secondary"
                             className="text-sm border-0 flex flex-row items-center gap-1 text-white bg-gradient-to-r from-yellow-500 to-amber-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-center"
                         >
-                            <Bird size={16} /> {"Early Bird"}
+                            <Box size={16} /> {"Early Bird"}
                         </Badge>
                         <Badge
                             variant="secondary"
                             className="text-sm font-medium rounded-lg text-center flex flex-row items-center gap-1"
                         >
-                            <Truck size={16} /> {"FREE Shipping"}
+                            <Truck size={16} /> {"Kickstarter Pre-Order!"}
                         </Badge>
                     </div>
                     <h1 className="text-3xl font-silkscreen mt-10 mb-4 font-semibold tracking-tight sm:text-4xl">
@@ -49,6 +52,10 @@ export default function Component() {
                     </p>
                 </div>
             </div>
+            <div className="my-12 px-4">
+                <YoutubeDemo />
+            </div>
+            
             {/* <ProductCarousel /> */}
             <div className="flex flex-col gap-12 px-6">
                 {/* Product Details */}
