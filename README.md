@@ -4,6 +4,9 @@
 
 ## 📺 Demo Video
 
+[![ElatoAI Demo](https://img.youtube.com/vi/o1eIAwVll5I/0.jpg)](https://www.youtube.com/watch?v=o1eIAwVll5I)
+
+
 <a href="https://www.youtube.com/watch?v=o1eIAwVll5I">
   <img src="https://img.shields.io/badge/Watch%20Demo-YouTube-red?style=for-the-badge&logo=youtube" alt="Watch Demo on YouTube">
 </a>
