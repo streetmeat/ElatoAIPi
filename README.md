@@ -10,7 +10,6 @@ https://github.com/user-attachments/assets/aa60e54c-5847-4a68-80b5-5d6b1a5b9328
   <img src="https://img.shields.io/badge/Watch%20Demo-YouTube-red?style=for-the-badge&logo=youtube" alt="Watch Demo on YouTube">
 </a>
 
-*Click the image above to watch the demo video on YouTube*
 ---
 
 ## 🌟 Features
