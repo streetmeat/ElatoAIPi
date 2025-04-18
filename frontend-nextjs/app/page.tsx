@@ -158,64 +158,6 @@ export default async function LandingPage() {
         {/* Create Character Showcase */}
         <CreateCharacterShowcase />
 
-
-
-        {/* Testimonials */}
-        <section className="w-full py-16  bg-gradient-to-b from-purple-50 to-white">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-              Our Early Customers Love It
-            </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="flex text-amber-500 mb-4">
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                </div>
-                <p className="text-gray-700 mb-4">
-                  "I attached the device to my childhood teddy bear and it's been such a nostalgic experience. Totally worth it!"
-                </p>
-                <div className="font-semibold text-purple-900">Ed S., 28</div>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="flex text-amber-500 mb-4">
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                </div>
-                <p className="text-gray-700 mb-4">
-                  "I'm a collector of vintage action figures, and its brought them to life in ways I never imagined. My Voltron figure now has the personality I always envisioned for it!"
-                </p>
-                <div className="font-semibold text-purple-900">Michael R., 17</div>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="flex text-amber-500 mb-4">
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                  <Star className="fill-amber-500" />
-                </div>
-                <p className="text-gray-700 mb-4">
-                  "It's like bouncing ideas off a best friend who's always there to listen."
-                </p>
-                <div className="font-semibold text-purple-900">Kai L., 48</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
         {/* Pricing */}
         <section className="w-full py-16 bg-white">
           <div className="container px-4 md:px-6">
