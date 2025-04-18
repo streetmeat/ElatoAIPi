@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, ArrowRight, Check, Mic, Volume2 } from "lucide-react";
 import Twemoji from "react-twemoji";
-import { createPersonality } from "../../actions";
+import { createPersonality } from "@/db/personalities";
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
@@ -163,7 +163,7 @@ const SettingsDashboard: React.FC<SettingsDashboardProps> = ({
     }
 
     try {
-      const personality = await createPersonality(selectedUser.user_id, {
+      const personality = await createPersonality(supabase, selectedUser.user_id, {
         title: formData.title,
         subtitle: "",
         character_prompt: formData.prompt,

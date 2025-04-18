@@ -32,7 +32,7 @@ const UserPersonalities: React.FC<UserPersonalitiesProps> = ({
                     disableButtons={disableButtons}
                 />
             )}
- <CharacterSection
+        <CharacterSection
             allPersonalities={allPersonalities}
             languageState={languageState}
             personalityIdState={personalityIdState}
@@ -42,7 +42,7 @@ const UserPersonalities: React.FC<UserPersonalitiesProps> = ({
             selectedFilters={selectedFilters}
         />
         </div>
-       
+
     );
 };
 

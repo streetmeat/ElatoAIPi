@@ -3,24 +3,16 @@ import { SessionStatus } from "@/app/components/Realtime/types";
 import { Paperclip, PhoneCall, Play, Stethoscope } from "lucide-react";
 import { Loader2, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { getPersonalityById } from "@/db/personalities";
-import { createClient } from "@/utils/supabase/client";
-import Image from "next/image";
-import { EmojiComponent } from "../../Playground/EmojiImage";
 
 interface BottomToolbarProps {
   sessionStatus: SessionStatus;
   onToggleConnection: () => void;
-  hasApiKey: boolean;
-  personality: IPersonality;
   isDoctor: boolean;
 }
 
 function BottomToolbar({
   sessionStatus,
   onToggleConnection,
-  hasApiKey,
-  personality,
   isDoctor,
 }: BottomToolbarProps) {
   const isConnected = sessionStatus === "CONNECTED";
@@ -44,7 +36,7 @@ function BottomToolbar({
     return "Doctor chat";
   }
 
-  const isDisabled = isConnecting || !hasApiKey;
+  const isDisabled = isConnecting;
 
   function getConnectionButtonClasses() {
     const baseClasses = "text-white text-base p-2 w-fit rounded-full shadow-lg flex flex-row items-center justify-center gap-2 px-4";
@@ -69,27 +61,13 @@ function BottomToolbar({
           <TooltipTrigger asChild>
           <button
         onClick={() => {
-          if (hasApiKey) {
+          if (process.env.OPENAI_API_KEY) {
             onToggleConnection();
           }
         }}
         className={getConnectionButtonClasses()}
         disabled={isDisabled}
       >
-         {/* {personality?.creator_id == null ? (
-          <Image 
-            src={`/personality/${personality?.key}.jpeg`} 
-            alt={personality?.title || "Personality avatar"} 
-            className="w-10 h-10 rounded-tl-full rounded-bl-full mr-2 object-cover"
-            width={40}
-            height={40}
-            quality={100}
-            onError={(e) => {
-              // Fallback if image fails to load
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        ) : <EmojiComponent personality={personality} size={28} />} */}
         {getConnectionButtonIcon()}
         {isDoctor ? getConnectionButtonLabelForDoctor() : getConnectionButtonLabel()}
       </button>

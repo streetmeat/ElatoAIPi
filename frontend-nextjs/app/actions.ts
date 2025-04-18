@@ -4,13 +4,16 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { encryptSecret, getMacAddressFromDeviceCode, isValidMacAddress } from "@/lib/utils";
+import { getMacAddressFromDeviceCode, isValidMacAddress } from "@/lib/utils";
 import { addUserToDevice, dbCheckUserCode } from "@/db/devices";
 import { getSimpleUserById, updateUser } from "@/db/users";
 
 export async function deleteUserApiKey(userId: string) {
     const supabase = createClient();
-    const { error } = await supabase.from('api_keys').delete().eq('user_id', userId);
+    const { error } = await supabase.from("api_keys").delete().eq(
+        "user_id",
+        userId,
+    );
     return error;
 }
 
@@ -41,12 +44,13 @@ export const forgotPasswordAction = async (formData: FormData) => {
         return encodedRedirect(
             "error",
             "/forgot-password",
-            "Email is required"
+            "Email is required",
         );
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${origin}/auth/callback?redirect_to=/protected/reset-password`,
+        redirectTo:
+            `${origin}/auth/callback?redirect_to=/protected/reset-password`,
     });
 
     if (error) {
@@ -54,7 +58,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
         return encodedRedirect(
             "error",
             "/forgot-password",
-            "Could not reset password"
+            "Could not reset password",
         );
     }
 
@@ -65,7 +69,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect(
         "success",
         "/forgot-password",
-        "Check your email for a link to reset your password."
+        "Check your email for a link to reset your password.",
     );
 };
 
@@ -79,7 +83,7 @@ export const resetPasswordAction = async (formData: FormData) => {
         encodedRedirect(
             "error",
             "/protected/reset-password",
-            "Password and confirm password are required"
+            "Password and confirm password are required",
         );
     }
 
@@ -87,7 +91,7 @@ export const resetPasswordAction = async (formData: FormData) => {
         encodedRedirect(
             "error",
             "/protected/reset-password",
-            "Passwords do not match"
+            "Passwords do not match",
         );
     }
 
@@ -99,7 +103,7 @@ export const resetPasswordAction = async (formData: FormData) => {
         encodedRedirect(
             "error",
             "/protected/reset-password",
-            "Password update failed"
+            "Password update failed",
         );
     }
 
@@ -118,7 +122,7 @@ export const checkDoctorAction = async (authCode: string) => {
 
 export const connectUserToDevice = async (
     userId: string,
-    userDeviceCode: string
+    userDeviceCode: string,
 ) => {
     const supabase = createClient();
 
@@ -131,7 +135,7 @@ export const connectUserToDevice = async (
     const successfullyAdded = await addUserToDevice(
         supabase,
         userDeviceCode,
-        userId
+        userId,
     );
     return successfullyAdded;
 };
@@ -171,69 +175,23 @@ export const isPremiumUser = async (userId: string) => {
     return dbUser?.is_premium;
 };
 
-export const setDeviceReset = async (userId: string) => {
-    const supabase = createClient();
-    await supabase
-        .from("users")
-        .update({ is_reset: true })
-        .eq("user_id", userId);
-};
-
-export const setDeviceOta = async (userId: string) => {
-    const supabase = createClient();
-    await supabase.from("users").update({ is_ota: true }).eq("user_id", userId);
-};
-
-export async function storeUserApiKey(userId: string, rawApiKey: string) {
-    const supabase = createClient();
-    const { iv, encryptedData } = encryptSecret(rawApiKey, process.env.ENCRYPTION_KEY!);
-  
-    const { error } = await supabase
-      .from('api_keys')
-      .upsert({
-        user_id: userId,
-        encrypted_key: encryptedData,
-        iv: iv,
-      });
-  
-    if (error) {
-      console.error('Error inserting or updating user secret:', error);
-      throw error;
-    }
-  
-    console.log(`Encrypted API key for user ${userId} stored successfully.`);
-  }
-
-  export async function checkIfUserHasApiKey(userId: string): Promise<boolean> {
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from('api_keys')
-      .select('*', { count: 'exact' })
-      .eq('user_id', userId);
-
-    if (error) {
-        console.error('Error checking if user has API key:', error);
-        throw error;
-    }
-
-    return data.length > 0;
-  }
-
-
-  export async function registerDevice(userId: string, deviceCode: string) {
+export async function registerDevice(userId: string, deviceCode: string) {
     // check if deviceCode is valid mac address
     if (!isValidMacAddress(deviceCode)) {
-         return { error: "Invalid device code" };
+        return { error: "Invalid device code" };
     }
 
     const supabase = createClient();
     const { data, error } = await supabase
-      .from('devices')
-      .insert({ user_id: userId, user_code: deviceCode.toLowerCase(), mac_address: getMacAddressFromDeviceCode(deviceCode).toUpperCase() }).select();
-
+        .from("devices")
+        .insert({
+            user_id: userId,
+            user_code: deviceCode, // this is the device code that the user will use to register their device (friendly code preferred)
+            mac_address: deviceCode,
+        }).select();
 
     if (error) {
-        console.log(error)
+        console.log(error);
         return { error: "Error registering device" };
     }
 
@@ -242,21 +200,4 @@ export async function storeUserApiKey(userId: string, rawApiKey: string) {
     }
 
     return { error: null };
-  }
-
-  export const createPersonality = async (userId: string, personality: IPersonality): Promise<IPersonality | null> => {
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from('personalities')
-      .insert({
-        ...personality,
-        creator_id: userId
-      }).select();
-
-    if (error) {
-        console.error('Error creating personality:', error);
-        throw error;
-    }
-
-    return data ? data[0] : null;
-  }
+}

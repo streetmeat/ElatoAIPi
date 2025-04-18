@@ -25,16 +25,13 @@ import { getPersonalityById } from "@/db/personalities";
 import { createClient } from "@/utils/supabase/client";
 
 interface AppProps {
-  hasApiKey: boolean;
   personalityIdState: string;
   isDoctor: boolean;
   userId: string;
 }
 
-function App({ hasApiKey, personalityIdState, isDoctor, userId }: AppProps) {
+function App({ personalityIdState, isDoctor, userId }: AppProps) {
   const supabase = createClient();
-
-  const searchParams = useSearchParams();
 
   const { transcriptItems, addTranscriptMessage, addTranscriptBreadcrumb } =
     useTranscript();
@@ -376,8 +373,6 @@ function App({ hasApiKey, personalityIdState, isDoctor, userId }: AppProps) {
        <BottomToolbar
         sessionStatus={sessionStatus}
         onToggleConnection={onToggleConnection}
-        hasApiKey={hasApiKey}
-        personality={personality}
         isDoctor={isDoctor}
       />
     </div>

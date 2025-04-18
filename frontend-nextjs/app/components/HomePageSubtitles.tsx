@@ -1,4 +1,3 @@
-import CreditsRemaining from "./CreditsRemaining";
 interface HomePageSubtitlesProps {
     user: IUser;
     page: "home" | "settings" | "create";

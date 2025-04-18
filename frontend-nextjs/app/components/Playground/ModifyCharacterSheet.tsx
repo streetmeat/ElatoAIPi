@@ -41,8 +41,6 @@ const ModifyCharacterSheet: React.FC<ModifyCharacterSheetProps> = ({
         return (
             <div className="flex flex-row gap-4 p-4 ">
                 <Button
-                    // tabIndex={-1}
-                    // autoFocus={false}
                     size="lg"
                     className={`w-full rounded-full text-sm md:text-lg flex flex-row items-center gap-1 md:gap-2 transition-colors duration-300 ${
                         isSent || isCurrentPersonality
@@ -60,7 +58,7 @@ const ModifyCharacterSheet: React.FC<ModifyCharacterSheetProps> = ({
                     <Check className="flex-shrink-0 h-5 w-5 md:h-6 md:w-6" />
                     {isSent || isCurrentPersonality
                         ? "Live character"
-                        : "Chat on Elato"}
+                        : "Click to chat"}
                 </Button>
             </div>
         );

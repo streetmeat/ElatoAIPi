@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { getCreditsRemaining } from "@/lib/utils";
-import PickPersonality from "./PickPersonality";
 import { updateUser } from "@/db/users";
 import _ from "lodash";
 import HomePageSubtitles from "../HomePageSubtitles";
@@ -11,8 +9,8 @@ import PersonalityFilters from "./PersonalityFilters";
 import { TranscriptProvider } from "../Realtime/contexts/TranscriptContext";
 import { EventProvider } from "../Realtime/contexts/EventContext";
 import App from "../Realtime/App";
-import { checkIfUserHasApiKey } from "@/app/actions";
 import { defaultPersonalityId } from "@/lib/data";
+import UserPersonalities from "./UserPersonalities";
 
 interface PlaygroundProps {
     currentUser: IUser;
@@ -25,20 +23,10 @@ const Playground: React.FC<PlaygroundProps> = ({
     allPersonalities,
     myPersonalities,
 }) => {
-    const [hasApiKey, setHasApiKey] = useState<boolean>(false);
     const isDoctor = currentUser.user_info.user_type === "doctor";
-
-    useEffect(() => {
-        const checkApiKey = async () => {
-            const hasApiKey = await checkIfUserHasApiKey(currentUser.user_id);
-            setHasApiKey(hasApiKey);
-        };
-        checkApiKey();
-    }, [currentUser.user_id]);
 
     const supabase = createClient();
 
-    // Remove userState entirely and just use personalityState
     const [personalityIdState, setPersonalityIdState] = useState<string>(
         currentUser.personality!.personality_id ?? defaultPersonalityId // Initial value from props
     );
@@ -47,12 +35,7 @@ const Playground: React.FC<PlaygroundProps> = ({
         []
     );
 
-    const creditsRemaining = getCreditsRemaining(currentUser);
-    const outOfCredits = creditsRemaining <= 0 && !currentUser.is_premium;
-    // const ref: any = useRef<ComponentRef<typeof Messages> | null>(null);
-
     const onPersonalityPicked = async (personalityIdPicked: string) => {
-        // Instantaneously update the state variable
         setPersonalityIdState(personalityIdPicked);
         await updateUser(
             supabase,
@@ -74,7 +57,7 @@ const Playground: React.FC<PlaygroundProps> = ({
                         <div className="flex flex-col gap-8 items-center justify-center">
                         <TranscriptProvider>
       <EventProvider>
-        <App hasApiKey={hasApiKey} personalityIdState={personalityIdState} isDoctor={isDoctor} userId={currentUser.user_id} />
+        <App personalityIdState={personalityIdState} isDoctor={isDoctor} userId={currentUser.user_id} />
       </EventProvider>
     </TranscriptProvider>
                         </div>
@@ -93,11 +76,10 @@ const Playground: React.FC<PlaygroundProps> = ({
                             languageState={'en-US'}
                             currentUser={currentUser}
                         />
-                        <PickPersonality
+                        <UserPersonalities
                             selectedFilters={selectedFilters}
                             onPersonalityPicked={onPersonalityPicked}
                             personalityIdState={personalityIdState}
-                            currentUser={currentUser}
                             languageState={'en-US'}
                             disableButtons={false}
                             allPersonalities={isDoctor 
@@ -107,16 +89,6 @@ const Playground: React.FC<PlaygroundProps> = ({
                         />
                     </div>
             </div>
-            {/* <ControlPanel
-                connectionStatus={connectionStatus}
-                isMuted={isMuted}
-                muteMicrophone={muteMicrophone}
-                unmuteMicrophone={unmuteMicrophone}
-                handleClickInterrupt={handleClickInterrupt}
-                handleClickCloseConnection={handleClickCloseConnection}
-                microphoneStream={microphoneStream}
-                audioBuffer={audioBuffer}
-            /> */}
         </div>
     );
 };

@@ -23,6 +23,7 @@ supabase start # Starts your local Supabase server with the default migrations a
 npm install
 npm run dev
 ```
+> **Login creds:** Email: admin@elatoai.com, Password: admin
 
 3. Add your ESP32-S3 Device MAC Address to the Settings page in the NextJS Frontend. (Remove colons and convert to lowercase, useful for adding friendly user codes when registering multiple devices)
 ```bash
@@ -40,26 +41,29 @@ OPENAI_API_KEY=your_openai_api_key
 
 5. Set up your ESP32 Arduino Client. On PlatformIO, first `Build` the project, then `Upload` the project to your ESP32.
 
-
-## 🌟 Features
-
-- **Realtime Speech-to-Speech**: Instant speech conversion powered by OpenAI's Realtime APIs.
-- **Create Custom AI Agents**: Create custom agents with different personalities and voices.
-- **Secure WebSockets**: Reliable, encrypted WebSocket communication.
-- **Server Turn Detection**: Intelligent conversation flow handling for smooth interactions.
-- **Opus Audio Compression**: High-quality audio streaming with minimal bandwidth.
-- **Global Edge Performance**: Low latency Deno Edge Functions ensuring seamless global conversations.
-- **ESP32 Arduino Framework**: Optimized and easy-to-use hardware integration.
-
-
 ## 📌 Project Architecture
 
 ElatoAI consists of three main components:
 
-1. **Frontend Client** (`Next.js` hosted on Vercel)
-2. **Edge Server Functions** (`Deno` running on Deno/Supabase Edge)
-3. **ESP32 IoT Client** (`PlatformIO/Arduino`)
+1. **Frontend Client** (`Next.js` hosted on Vercel) - to create and talk to your AI agents and 'send' it to your ESP32 device
+2. **Edge Server Functions** (`Deno` running on Deno/Supabase Edge) - to handle the websocket connections from the ESP32 device and the OpenAI API calls
+3. **ESP32 IoT Client** (`PlatformIO/Arduino`) - to receive the websocket connections from the Edge Server Functions and send audio to the OpenAI API via the Deno edge server.
 
+
+## 🌟 Features
+
+1. **Realtime Speech-to-Speech**: Instant speech conversion powered by OpenAI's Realtime APIs.
+2. **Create Custom AI Agents**: Create custom agents with different personalities and voices.
+3. **Customizable Voices**: Choose from a variety of voices and personalities.
+4. **Secure WebSockets**: Reliable, encrypted WebSocket communication.
+5. **Server Turn Detection**: Intelligent conversation flow handling for smooth interactions.
+6. **Opus Audio Compression**: High-quality audio streaming with minimal bandwidth.
+7. **Global Edge Performance**: Low latency Deno Edge Functions ensuring seamless global conversations.
+8. **ESP32 Arduino Framework**: Optimized and easy-to-use hardware integration.
+9. **Conversation History**: View your conversation history.
+10. **Device Management**: Register and manage your devices.
+11. **User Authentication**: Secure user authentication and authorization.
+12. **Conversations with WebRTC and Websockets**: Talk to your AI with WebRTC on the NextJS webapp and with websockets on the ESP32.
 
 ## 🛠 Tech Stack
 

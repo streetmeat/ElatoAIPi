@@ -1,4 +1,4 @@
-import { checkIfUserHasApiKey, registerDevice, signOutAction } from "@/app/actions";
+import { registerDevice, signOutAction } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -35,15 +35,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
     const userFormRef = React.useRef<{ submitForm: () => void } | null>(null);
     const [deviceCode, setDeviceCode] = React.useState("");
     const [error, setError] = React.useState("");
-    const [hasApiKey, setHasApiKey] = React.useState<boolean>(false);
-
-    const userHasApiKey = useCallback(async () => {
-        const hasApiKey = await checkIfUserHasApiKey(selectedUser.user_id);
-        setHasApiKey(hasApiKey);
-    }, [selectedUser.user_id]);
     
-    // ... existing code ...
-
     const handleSave = () => {
         if (selectedUser.user_info.user_type === "doctor") {
             doctorFormRef.current?.submitForm();
@@ -58,16 +50,9 @@ const AppSettings: React.FC<AppSettingsProps> = ({
         );
     }, [selectedUser.user_id, supabase]);
 
-    React.useEffect(() => {
-        checkIfUserHasDevice();
-        userHasApiKey();
-    }, [checkIfUserHasDevice, userHasApiKey]);
-
     const [volume, setVolume] = React.useState([
         selectedUser.device?.volume ?? 50,
     ]);
-    const [isReset, setIsReset] = React.useState(selectedUser.device?.is_reset ?? false);
-    const [isOta, setIsOta] = React.useState(selectedUser.device?.is_ota ?? false);
 
     const debouncedUpdateVolume = _.debounce(async () => {
         if (selectedUser.device?.device_id) {
@@ -137,24 +122,6 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                     Device settings
                 </h2>
                 <div className="flex flex-col gap-6">
-                {/* <div className="flex flex-col gap-2">
-                    <div className="flex flex-row items-center gap-2">
-                        <Label className="text-sm font-medium text-gray-700">
-                            Set your OpenAI API Key
-                        </Label>
-                        <div 
-                            className={`rounded-full flex-shrink-0 h-2 w-2 ${
-                                hasApiKey ? 'bg-green-500' : 'bg-amber-500'
-                            }`} 
-                        />                    
-                    </div>
-                    <div className="flex flex-row items-center gap-2 mt-2">
-                            <AuthTokenModal user={selectedUser} userHasApiKey={userHasApiKey} hasApiKey={hasApiKey} setHasApiKey={setHasApiKey} />
-                        </div>
-                        <p className="text-xs text-gray-400">
-                            Your keys are E2E encrypted and never stored on our servers as plain text.
-                        </p>
-                </div> */}
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-row items-center gap-2">
                     <Label className="text-sm font-medium text-gray-700">
@@ -166,7 +133,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                               ?
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>For simplicity, you can register your ESP32 MAC address here without colons</p>
+                              <p>For simplicity, you can register your ESP32 MAC address here. <br /> Ideally you want this to be a friendly code for your device.</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -183,7 +150,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                                 value={deviceCode}
                                 disabled={isConnected}
                                 onChange={(e) => setDeviceCode(e.target.value)}
-                                placeholder={isConnected ? "**********" : "Enter your device code"}
+                                placeholder={isConnected ? "**********" : "Enter your ESP32-S3 MAC address"}
                             />
                             <Button
                                 size="sm"
@@ -203,81 +170,10 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                         <p className="text-xs text-gray-400">
                             {isConnected ? <span className="font-medium text-gray-800">Registered!</span> :
                                 error ? <span className="text-red-500">{error}.</span> :
-                                "Add your device code to your account to register it."
+                                "Add your ESP32-S3 MAC address (e.g. 12:34:56:78:9A:BC) to your account to register it."
                         }
                         </p>
                     </div>
-                    {/* <div className="flex flex-col gap-4 flex-nowrap">
-                        <Label className="text-sm font-medium text-gray-700">
-                            Over-the-air (OTA) updates
-                        </Label>
-                            <div className="flex flex-col gap-2">
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="font-normal flex flex-row items-center gap-2 w-fit"
-                                    onClick={async () => {
-                                        setIsOta(true);
-                                        await setDeviceOta(
-                                            selectedUser.user_id
-                                        );
-                                    }}
-                                    disabled={isOta}
-                                >
-                                    <RefreshCw size={16} />
-                                    <span>Update</span>
-                                </Button>
-                                {isOta ? (
-                                    <p className="text-xs text-gray-400 inline">
-                                        <Check
-                                            size={16}
-                                            className="inline-block mr-1"
-                                        />
-                                        Your device will be updated on next
-                                        start
-                                    </p>
-                                ) : (
-                                    <p className="text-xs text-gray-400">
-                                        This will update your device software to
-                                        the latest version.
-                                    </p>
-                                )}
-                            </div>
-                            <Label className="text-sm font-medium text-gray-700">
-                            Factory reset
-                        </Label>
-                            <div className="flex flex-col gap-2">
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="font-normal flex flex-row items-center gap-2 w-fit"
-                                    onClick={async () => {
-                                        setIsReset(true);
-                                        await setDeviceReset(
-                                            selectedUser.user_id
-                                        );
-                                    }}
-                                    disabled={isReset}
-                                >
-                                    <Cog size={16} />
-                                    <span>Factory reset</span>
-                                </Button>
-                                {isReset ? (
-                                    <p className="text-xs text-gray-400 inline">
-                                        <Check
-                                            size={16}
-                                            className="inline-block mr-1"
-                                        />
-                                        Your device will be factory reset on next start
-                                    </p>
-                                ) : (
-                                    <p className="text-xs text-gray-400">
-                                        Caution: This will reset your wifi and authentication details on your device.
-                                    </p>
-                                )}
-                            </div>
-                        </div> */}
-
                     <div className="flex flex-col gap-2 mt-2">
                         <Label className="text-sm font-medium text-gray-700">
                             Logged in as
