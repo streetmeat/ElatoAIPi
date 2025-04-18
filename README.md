@@ -18,21 +18,15 @@ https://github.com/user-attachments/assets/aa60e54c-5847-4a68-80b5-5d6b1a5b9328
 supabase start # Starts your local Supabase server with the default migrations and seed data.
 ```
 
-2. Set up your NextJS Frontend. From the `frontend-nextjs` directory, run:
+2. Set up your NextJS Frontend. From the `frontend-nextjs` directory, run the following commands. (**Login creds:** Email: admin@elatoai.com, Password: admin)
 ```bash
+cd frontend-nextjs
 npm install
 npm run dev
 ```
-> **Login creds:** Email: admin@elatoai.com, Password: admin
 
-3. Add your ESP32-S3 Device MAC Address to the Settings page in the NextJS Frontend. (Remove colons and convert to lowercase, useful for adding friendly user codes when registering multiple devices)
-```bash
-# Example 
-
-# 12:34:56:78:9A:BC -> 123456789abc
-# 12:34:56:78:9A:BD -> 123456789abd
-```
-> **Tip:** To find your ESP32-S3 Device's MAC Address, build and upload `test/print_mac_address_test.cpp` using PlatformIO.
+3. Add your ESP32-S3 Device MAC Address to the Settings page in the NextJS Frontend. This links your device to your account.
+To find your ESP32-S3 Device's MAC Address, build and upload `test/print_mac_address_test.cpp` using PlatformIO.
 
 4. Add your OpenAI API Key in the `server-deno/.env` and `frontend-nextjs/.env.local` file.
 ```
@@ -40,6 +34,10 @@ OPENAI_API_KEY=your_openai_api_key
 ```
 
 5. Set up your ESP32 Arduino Client. On PlatformIO, first `Build` the project, then `Upload` the project to your ESP32.
+
+6. The ESP32 should open an AP `ELATO-DEVICE` to connect to Wifi. Connect to it and go to `http://192.168.4.1` to configure the device.
+
+7. Once your Wifi is configured, turn the device off and on again and it should connect to your Wifi and the Deno edge server.
 
 ## 📌 Project Architecture
 
@@ -96,14 +94,17 @@ flowchart TD
 ```mermaid
 graph TD
   repo[ElatoAI]
-  repo --> frontend[Frontend - Next.js]
+  repo --> frontend[Frontend Vercel (NextJS)]
   repo --> deno[Deno Edge Function]
   repo --> esp32[ESP32 Arduino Client]
+  deno --> supabase[Supabase DB]
 
   frontend --> supabase[Supabase DB]
   esp32 --> websockets[Secure WebSockets]
   esp32 --> opus[Opus Codec]
   esp32 --> audio_tools[arduino-audio-tools]
+  esp32 --> libopus[arduino-libopus]
+  esp32 --> ESPAsyncWebServer[ESPAsyncWebServer]
 ```
 
 ## ⚙️ PlatformIO Configuration
