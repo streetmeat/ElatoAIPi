@@ -18,7 +18,7 @@ https://github.com/user-attachments/assets/aa60e54c-5847-4a68-80b5-5d6b1a5b9328
 supabase start # Starts your local Supabase server with the default migrations and seed data.
 ```
 
-2. Set up your NextJS Frontend. From the `frontend-nextjs` directory, run the following commands. (**Login creds:** Email: admin@elatoai.com, Password: admin)
+2. Set up your NextJS Frontend. ([See the Frontend README](frontend-nextjs/README.md)) From the `frontend-nextjs` directory, run the following commands. (**Login creds:** Email: admin@elatoai.com, Password: admin)
 ```bash
 cd frontend-nextjs
 npm install
@@ -28,12 +28,12 @@ npm run dev
 3. Add your ESP32-S3 Device MAC Address to the Settings page in the NextJS Frontend. This links your device to your account.
 To find your ESP32-S3 Device's MAC Address, build and upload `test/print_mac_address_test.cpp` using PlatformIO.
 
-4. Add your OpenAI API Key in the `server-deno/.env` and `frontend-nextjs/.env.local` file.
+4. Add your OpenAI API Key in the `server-deno/.env` and `frontend-nextjs/.env.local` file. ([See the Deno server README](server-deno/README.md))
 ```
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-5. Set up your ESP32 Arduino Client. On PlatformIO, first `Build` the project, then `Upload` the project to your ESP32.
+5. Set up your ESP32 Arduino Client. ([See the ESP32 README](firmware-arduino/README.md)) On PlatformIO, first `Build` the project, then `Upload` the project to your ESP32.
 
 6. The ESP32 should open an AP `ELATO-DEVICE` to connect to Wifi. Connect to it and go to `http://192.168.4.1` to configure the device.
 
