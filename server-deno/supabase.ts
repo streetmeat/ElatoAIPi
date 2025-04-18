@@ -1,11 +1,11 @@
-import { createClient, SupabaseClient } from 'jsr:@supabase/supabase-js@2';
-import { decryptSecret } from './utils.ts';
+import { createClient, SupabaseClient } from "jsr:@supabase/supabase-js@2";
+import { decryptSecret } from "./utils.ts";
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseKey = Deno.env.get('SUPABASE_KEY')!;
+const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+const supabaseKey = Deno.env.get("SUPABASE_KEY")!;
 
 if (!supabaseUrl || !supabaseKey) {
-    throw new Error('SUPABASE_URL or SUPABASE_KEY is not set');
+    throw new Error("SUPABASE_URL or SUPABASE_KEY is not set");
 }
 
 export function getSupabaseClient(userJwt: string) {
@@ -22,14 +22,14 @@ export const getUserByEmail = async (
     supabase: SupabaseClient,
     email: string,
 ): Promise<IUser> => {
-    const { data, error } = await supabase.from('users').select(
-        '*, language:languages(name), personality:personalities!users_personality_id_fkey(*), device:device_id(is_reset, is_ota, volume)',
-    ).eq('email', email);
+    const { data, error } = await supabase.from("users").select(
+        "*, language:languages(name), personality:personalities!users_personality_id_fkey(*), device:device_id(is_reset, is_ota, volume)",
+    ).eq("email", email);
 
-    console.log('data', data, error);
+    console.log("data", data, error);
 
     if (error) {
-        throw new Error('Failed to authenticate user');
+        throw new Error("Failed to authenticate user");
     }
     return data[0] as IUser;
 };
@@ -38,7 +38,10 @@ export const getDeviceInfo = async (
     supabase: SupabaseClient,
     userId: string,
 ): Promise<IDevice | null> => {
-    const { data, error } = await supabase.from('devices').select('*').eq('user_id', userId)
+    const { data, error } = await supabase.from("devices").select("*").eq(
+        "user_id",
+        userId,
+    )
         .single();
     if (error) return null;
     return data as IDevice;
@@ -46,8 +49,10 @@ export const getDeviceInfo = async (
 
 export const composeChatHistory = (data: IConversation[]) => {
     const messages = data.map((chat: IConversation) =>
-        `${chat.role} [${new Date(chat.created_at).toISOString()}]: ${chat.content}`
-    ).join('\n');
+        `${chat.role} [${
+            new Date(chat.created_at).toISOString()
+        }]: ${chat.content}`
+    ).join("\n");
 
     return messages;
 };
@@ -60,14 +65,14 @@ export const getChatHistory = async (
 ): Promise<IConversation[]> => {
     try {
         let query = supabase
-            .from('conversations')
-            .select('*')
-            .eq('user_id', userId)
-            .order('created_at', { ascending: false })
+            .from("conversations")
+            .select("*")
+            .eq("user_id", userId)
+            .order("created_at", { ascending: false })
             .limit(20);
 
         if (personalityKey) {
-            query = query.eq('personality_key', personalityKey);
+            query = query.eq("personality_key", personalityKey);
         }
 
         // If isDoctor is true, only fetch conversations from the last 2 hours
@@ -77,7 +82,7 @@ export const getChatHistory = async (
             twoHoursAgo.setHours(twoHoursAgo.getHours() - 2);
 
             // Add timestamp filter to query
-            query = query.gte('created_at', twoHoursAgo.toISOString());
+            query = query.gte("created_at", twoHoursAgo.toISOString());
         }
 
         const { data, error } = await query;
@@ -100,9 +105,11 @@ const getDoctorGuidanceHistory = (
     data: IConversation[],
 ): string => {
     return data?.map((chat: IConversation) => {
-        const timestamp = chat.created_at ? new Date(chat.created_at).toLocaleString() : '';
+        const timestamp = chat.created_at
+            ? new Date(chat.created_at).toLocaleString()
+            : "";
         return `${chat.role} [${timestamp}]: ${chat.content}`;
-    }).join('') ?? '';
+    }).join("") ?? "";
 };
 
 const DoctorGuidelinesPrompt = (chatHistory: IConversation[]) => {
@@ -117,10 +124,11 @@ You must follow these instructions while you interact with the child patient.
 
 const DoctorPromptTemplate = (user: IUser, chatHistory: IConversation[]) => {
     const userMetadata = user.user_info.user_metadata as IDoctorMetadata;
-    const doctorName = userMetadata.doctor_name || 'Doctor';
-    const hospitalName = userMetadata.hospital_name || 'An amazing hospital';
-    const specialization = userMetadata.specialization || 'general medicine';
-    const favoritePhrases = userMetadata.favorite_phrases || "You're doing an amazing job";
+    const doctorName = userMetadata.doctor_name || "Doctor";
+    const hospitalName = userMetadata.hospital_name || "An amazing hospital";
+    const specialization = userMetadata.specialization || "general medicine";
+    const favoritePhrases = userMetadata.favorite_phrases ||
+        "You're doing an amazing job";
     const doctorGuidelinesPrompt = DoctorGuidelinesPrompt(chatHistory);
 
     return `
@@ -177,7 +185,11 @@ You are a lively, imaginative storyteller character named ${title}. You are abou
     `;
 };
 
-const getCommonPromptTemplate = (chatHistory: string, user: IUser, timestamp: string) => `
+const getCommonPromptTemplate = (
+    chatHistory: string,
+    user: IUser,
+    timestamp: string,
+) => `
 Your Voice Description: ${user.personality?.voice_prompt}
 
 Your Character Description: ${user.personality?.character_prompt}
@@ -190,7 +202,10 @@ This is the chat history.
 ${chatHistory}
 `;
 
-export const createFirstMessage = (chatHistory: IConversation[], payload: IPayload) => {
+export const createFirstMessage = (
+    chatHistory: IConversation[],
+    payload: IPayload,
+) => {
     const { timestamp } = payload;
 
     // If no chat history, return null (let the system handle a brand new conversation)
@@ -203,7 +218,8 @@ export const createFirstMessage = (chatHistory: IConversation[], payload: IPaylo
     const currentTime = new Date(timestamp);
 
     // Calculate time difference in minutes
-    const timeDiffMinutes = (currentTime.getTime() - lastMessageTime.getTime()) / (1000 * 60);
+    const timeDiffMinutes =
+        (currentTime.getTime() - lastMessageTime.getTime()) / (1000 * 60);
 
     if (timeDiffMinutes < 2) {
         // If less than 5 minutes, likely an accidental disconnection
@@ -217,13 +233,13 @@ export const createFirstMessage = (chatHistory: IConversation[], payload: IPaylo
         // If less than a day
         const hours = Math.round(timeDiffMinutes / 60);
         return `It's been about ${hours} hour${
-            hours > 1 ? 's' : ''
+            hours > 1 ? "s" : ""
         } since your last conversation. The user just started a new conversation!`;
     } else {
         // If more than a day
         const days = Math.round(timeDiffMinutes / (60 * 24));
         return `Welcome the user back after ${days} day${
-            days > 1 ? 's' : ''
+            days > 1 ? "s" : ""
         }! It's been a while since your last conversation.`;
     }
 };
@@ -234,8 +250,12 @@ export const createSystemPrompt = (
 ): string => {
     const { user, timestamp } = payload;
     const chatHistoryString = composeChatHistory(chatHistory);
-    console.log('chatHistoryString', chatHistoryString);
-    const commonPrompt = getCommonPromptTemplate(chatHistoryString, user, timestamp);
+    console.log("chatHistoryString", chatHistoryString);
+    const commonPrompt = getCommonPromptTemplate(
+        chatHistoryString,
+        user,
+        timestamp,
+    );
 
     const isStory = user.personality?.is_story;
     if (isStory) {
@@ -245,25 +265,25 @@ export const createSystemPrompt = (
 
     let systemPrompt: string;
     switch (user.user_info.user_type) {
-        case 'user':
+        case "user":
             systemPrompt = UserPromptTemplate(user);
             break;
-        case 'doctor':
+        case "doctor":
             systemPrompt = DoctorPromptTemplate(user, chatHistory);
             break;
         default:
-            throw new Error('Invalid user type');
+            throw new Error("Invalid user type");
     }
     return commonPrompt + systemPrompt;
 };
 
 export const addConversation = async (
     supabase: SupabaseClient,
-    speaker: 'user' | 'assistant',
+    speaker: "user" | "assistant",
     content: string,
     user: IUser,
 ): Promise<void> => {
-    const { error } = await supabase.from('conversations').insert({
+    const { error } = await supabase.from("conversations").insert({
         role: speaker,
         content,
         user_id: user.user_id,
@@ -272,7 +292,7 @@ export const addConversation = async (
     });
 
     if (error) {
-        throw new Error('Failed to add conversation');
+        throw new Error("Failed to add conversation");
     }
 };
 
@@ -282,29 +302,38 @@ export const updateUserSessionTime = async (
     sessionTime: number,
 ): Promise<void> => {
     const { error } = await supabase
-        .from('users')
+        .from("users")
         .update({
             session_time: user.session_time + sessionTime,
         })
-        .eq('user_id', user.user_id);
+        .eq("user_id", user.user_id);
 
     if (error) throw error;
 };
 
+/**
+ * Get the OpenAI API Key for the user
+ * @param supabase - The Supabase client
+ * @param userId - The user's ID
+ * @returns The OpenAI API Key
+ *
+ * Tip: You can use the `getOpenAiApiKey` function to get the OpenAI API Key for the user.
+ * Or you can store your own OpenAI API Key in the environment variable `OPENAI_API_KEY`.
+ */
 export const getOpenAiApiKey = async (
     supabase: SupabaseClient,
     userId: string,
 ): Promise<string> => {
     const { data, error } = await supabase
-        .from('api_keys')
-        .select('encrypted_key, iv')
-        .eq('user_id', userId)
+        .from("api_keys")
+        .select("encrypted_key, iv")
+        .eq("user_id", userId)
         .single();
 
     if (error) throw error;
 
     const { encrypted_key, iv } = data;
-    const masterKey = Deno.env.get('ENCRYPTION_KEY')!;
+    const masterKey = Deno.env.get("ENCRYPTION_KEY")!;
 
     const decryptedKey = decryptSecret(encrypted_key, iv, masterKey);
 

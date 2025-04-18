@@ -302,7 +302,7 @@ export default async function RootLayout({
 }) {
     const supabase = createClient();
 
-    const { stars } = await fetchGithubStars("StarmoonAI/Starmoon");
+    const { stars } = await fetchGithubStars("akdeb/ElatoAI");
 
     const {
         data: { user },

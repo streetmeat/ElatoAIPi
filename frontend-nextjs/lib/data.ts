@@ -2,8 +2,7 @@ export const defaultToyId: string = "56224f7f-250d-4351-84ee-e4a13b881c7b";
 export const defaultPersonalityId: string =
     "a1c073e6-653d-40cf-acc1-891331689409";
 
-    export const paymentLink = "https://buy.stripe.com/bIY0033Dc7LB28o9AJ";
-    export const starmoonProductsLink = "https://elatoai.com/products";
+export const paymentLink = "https://buy.stripe.com/bIY0033Dc7LB28o9AJ";
 export const discordInviteLink = "https://discord.gg/KJWxDPBRUj";
 export const tiktokLink = "https://www.tiktok.com/@elatoai";
 export const githubPublicLink = "https://github.com/akdeb/ElatoAI";
@@ -20,7 +19,6 @@ export const videoSrc4 = `${r2Url}/IMG_1677.mov`;
 
 export const voiceSampleUrl =
     "https://xygbupeczfhwamhqnucy.supabase.co/storage/v1/object/public/voices/";
-export const docsLink = "https://starmoonai.notion.site/doc?pvs=4";
 
 export const userFormPersonaLabel =
     "Briefly describe yourself and your interests, personality, and learning style";
@@ -39,21 +37,79 @@ export const ORIGINAL_COST = 111;
 export const SUBSCRIPTION_COST = 10;
 
 export const voices = [
-  { id: 'alloy', name: 'Alloy', description: 'Neutral and balanced', color: 'bg-blue-100', emoji: '🧑' },
-  { id: 'echo', name: 'Echo', description: 'Warm and melodic', color: 'bg-purple-100', emoji: '👩‍🎤' },
-  { id: 'shimmer', name: 'Shimmer', description: 'Clear and bright', color: 'bg-cyan-100', emoji: '👱‍♀️' },
-  { id: 'ash', name: 'Ash', description: 'Soft and thoughtful', color: 'bg-gray-100', emoji: '🧔' },
-  { id: 'ballad', name: 'Ballad', description: 'Melodic and emotive', color: 'bg-indigo-100', emoji: '🎭' },
-  { id: 'coral', name: 'Coral', description: 'Warm and friendly', color: 'bg-orange-100', emoji: '👩' },
-  { id: 'sage', name: 'Sage', description: 'Wise and measured', color: 'bg-green-100', emoji: '🧓' },
-  { id: 'verse', name: 'Verse', description: 'Poetic and expressive', color: 'bg-rose-100', emoji: '👨‍🎨' }
+    {
+        id: "alloy",
+        name: "Alloy",
+        description: "Neutral and balanced",
+        color: "bg-blue-100",
+        emoji: "🧑",
+    },
+    {
+        id: "echo",
+        name: "Echo",
+        description: "Warm and melodic",
+        color: "bg-purple-100",
+        emoji: "👩‍🎤",
+    },
+    {
+        id: "shimmer",
+        name: "Shimmer",
+        description: "Clear and bright",
+        color: "bg-cyan-100",
+        emoji: "👱‍♀️",
+    },
+    {
+        id: "ash",
+        name: "Ash",
+        description: "Soft and thoughtful",
+        color: "bg-gray-100",
+        emoji: "🧔",
+    },
+    {
+        id: "ballad",
+        name: "Ballad",
+        description: "Melodic and emotive",
+        color: "bg-indigo-100",
+        emoji: "🎭",
+    },
+    {
+        id: "coral",
+        name: "Coral",
+        description: "Warm and friendly",
+        color: "bg-orange-100",
+        emoji: "👩",
+    },
+    {
+        id: "sage",
+        name: "Sage",
+        description: "Wise and measured",
+        color: "bg-green-100",
+        emoji: "🧓",
+    },
+    {
+        id: "verse",
+        name: "Verse",
+        description: "Poetic and expressive",
+        color: "bg-rose-100",
+        emoji: "👨‍🎨",
+    },
 ];
 
 export const emotionOptions = [
-  { value: 'neutral', label: 'Neutral', icon: '😐', color: 'bg-red-100' },
-  { value: 'cheerful', label: 'Cheerful', icon: '😊', color: 'bg-yellow-100' },
-  { value: 'serious', label: 'Serious', icon: '🧐', color: 'bg-blue-100' },
-  { value: 'calm', label: 'Calm', icon: '😌', color: 'bg-teal-100' },
-  { value: 'excited', label: 'Excited', icon: '😃', color: 'bg-orange-100' },
-  { value: 'professional', label: 'Professional', icon: '👔', color: 'bg-green-100' }
+    { value: "neutral", label: "Neutral", icon: "😐", color: "bg-red-100" },
+    {
+        value: "cheerful",
+        label: "Cheerful",
+        icon: "😊",
+        color: "bg-yellow-100",
+    },
+    { value: "serious", label: "Serious", icon: "🧐", color: "bg-blue-100" },
+    { value: "calm", label: "Calm", icon: "😌", color: "bg-teal-100" },
+    { value: "excited", label: "Excited", icon: "😃", color: "bg-orange-100" },
+    {
+        value: "professional",
+        label: "Professional",
+        icon: "👔",
+        color: "bg-green-100",
+    },
 ];

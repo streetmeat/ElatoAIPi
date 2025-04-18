@@ -24,9 +24,7 @@ DropdownMenuContent,
 import { FaDiscord, FaGithub } from "react-icons/fa";
 import { User } from "@supabase/supabase-js";
 import {
-    businessDemoLink,
     discordInviteLink,
-    docsLink,
     feedbackFormLink,
     githubPublicLink,
 } from "@/lib/data";
@@ -44,8 +42,6 @@ const ICON_SIZE = 22;
 export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
     const [premiumUser, setPremiumUser] = useState(false);
     const pathname = usePathname();
-
-    const isKids = pathname.includes("/kids");
 
     useEffect(() => {
         const setUserPremium = async () => {
@@ -124,17 +120,6 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                 <DropdownMenuGroup>
                     {user ? <LoggedInItems /> : <LoggedOutItems />}
                     <DropdownMenuSeparator />
-
-                    {/* <DropdownMenuItem>
-                        <Link
-                            href={isKids ? "/" : "/kids"}
-                            passHref
-                            className="flex flex-row gap-2 w-full"
-                        >
-                            {isKids ? <Gamepad2 size={ICON_SIZE} /> : <Blocks size={ICON_SIZE} />}
-                            <span>{isKids ? "Elato for Hobbyists" : "Elato for Kids"}</span>
-                        </Link>
-                    </DropdownMenuItem> */}
                 </DropdownMenuGroup>
                 <DropdownMenuItem>
                     <Link

@@ -24,7 +24,6 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
     isHome,
 }) => {
     const isMobile = useMediaQuery("(max-width: 768px)");
-    const isHealthcare = usePathname().includes("/healthcare");
 
     return (
         <div
@@ -37,12 +36,6 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
                     <PremiumBadge currentUserId={user.user_id} />
                 </div>
             )}
-            {/* {isHealthcare ? (
-                <GetInTouchButton size="sm" iconOnMobile={isMobile} />
-            ) : (
-                <PreorderButton size="sm" buttonText="Buy" className="font-normal" iconOnMobile />
-            )} */}
-
             {!isHome && (
                 <Link
                     href={githubPublicLink}
@@ -62,7 +55,7 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({
                     </Button>
                 </Link>
             )}
-            {!isHome && !isHealthcare && !isMobile && (
+            {!isHome && !isMobile && (
                 <Link href={businessDemoLink} passHref tabIndex={-1}>
                     <Button
                         size="sm"

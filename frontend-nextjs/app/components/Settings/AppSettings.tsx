@@ -2,8 +2,7 @@ import { checkIfUserHasApiKey, registerDevice, signOutAction } from "@/app/actio
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Check, Cog, LogOut, RefreshCw } from "lucide-react";
-import AuthTokenModal from "../AuthTokenModal";
+import { LogOut } from "lucide-react";
 import DoctorForm from "./DoctorForm";
 import GeneralUserForm from "./UserForm";
 import { Slider } from "@/components/ui/slider";
@@ -138,7 +137,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                     Device settings
                 </h2>
                 <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                     <div className="flex flex-row items-center gap-2">
                         <Label className="text-sm font-medium text-gray-700">
                             Set your OpenAI API Key
@@ -155,7 +154,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                         <p className="text-xs text-gray-400">
                             Your keys are E2E encrypted and never stored on our servers as plain text.
                         </p>
-                    </div>
+                </div> */}
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-row items-center gap-2">
                     <Label className="text-sm font-medium text-gray-700">
@@ -167,7 +166,7 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                               ?
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>For simplicity, you can register your ESP32 MAC address without the colons</p>
+                              <p>For simplicity, you can register your ESP32 MAC address here without colons</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
