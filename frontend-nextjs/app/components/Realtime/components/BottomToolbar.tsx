@@ -61,9 +61,7 @@ function BottomToolbar({
           <TooltipTrigger asChild>
           <button
         onClick={() => {
-          if (process.env.OPENAI_API_KEY) {
-            onToggleConnection();
-          }
+          onToggleConnection();
         }}
         className={getConnectionButtonClasses()}
         disabled={isDisabled}

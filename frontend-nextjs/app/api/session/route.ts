@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { getUserById } from "@/db/users";
 
 interface IPayload {
@@ -131,33 +130,6 @@ const createSystemPrompt = async (
   }
   return systemPrompt + commonPrompt;
 };
-
-/**
- * Decrypts an encrypted secret with the same master encryption key.
- * @param encryptedData - base64 string from the database
- * @param iv - base64 IV from the database
- * @param masterKey - 32-byte string or buffer
- * @returns the original plaintext secret
- */
-function decryptSecret(encryptedData: string, iv: string, masterKey: string) {
-  // Decode the base64 master key
-  const decodedKey = Buffer.from(masterKey, "base64");
-  if (decodedKey.length !== 32) {
-    throw new Error(
-      "ENCRYPTION_KEY must be 32 bytes when decoded from base64.",
-    );
-  }
-
-  const decipher = crypto.createDecipheriv(
-    "aes-256-cbc" as any,
-    Buffer.from(masterKey, "base64") as any,
-    Buffer.from(iv, "base64") as any,
-  );
-
-  let decrypted = decipher.update(encryptedData, "base64", "utf8");
-  decrypted += decipher.final("utf8");
-  return decrypted;
-}
 
 export async function GET(request: NextRequest) {
   const supabase = createClient();
