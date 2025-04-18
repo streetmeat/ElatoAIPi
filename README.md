@@ -94,12 +94,12 @@ flowchart TD
 ```mermaid
 graph TD
   repo[ElatoAI]
-  repo --> frontend[Frontend Vercel (NextJS)]
+  repo --> frontend[Frontend Vercel NextJS]
   repo --> deno[Deno Edge Function]
   repo --> esp32[ESP32 Arduino Client]
   deno --> supabase[Supabase DB]
 
-  frontend --> supabase[Supabase DB]
+  frontend --> supabase
   esp32 --> websockets[Secure WebSockets]
   esp32 --> opus[Opus Codec]
   esp32 --> audio_tools[arduino-audio-tools]
