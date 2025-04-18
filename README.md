@@ -60,7 +60,7 @@ ElatoAI consists of three main components:
 2. **Create Custom AI Agents**: Create custom agents with different personalities and voices.
 3. **Customizable Voices**: Choose from a variety of voices and personalities.
 4. **Secure WebSockets**: Reliable, encrypted WebSocket communication.
-5. **Server Turn Detection**: Intelligent conversation flow handling for smooth interactions.
+5. **Server VAD Turn Detection**: Intelligent conversation flow handling for smooth interactions.
 6. **Opus Audio Compression**: High-quality audio streaming with minimal bandwidth.
 7. **Global Edge Performance**: Low latency Deno Edge Functions ensuring seamless global conversations.
 8. **ESP32 Arduino Framework**: Optimized and easy-to-use hardware integration.
@@ -150,11 +150,15 @@ lib_deps =
 
 - Limited to upto 10 minutes of uninterrupted conversations
 - Edge server stops when wall clock time is exceeded
+- No speech interruption detection on ESP32
 
 ## 🤝 Contributing
 
-We welcome contributions
+1. Looking for Speech Interruption detection on ESP32
+2. Adding Arduino IDE support
+3. Adding tool calling support on Deno Edge
 
+We welcome contributions
 - Fork this repository.
 - Create your feature branch (`git checkout -b feature/EpicFeature`).
 - Commit your changes (`git commit -m 'Add EpicFeature'`).
