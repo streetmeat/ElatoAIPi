@@ -137,8 +137,13 @@ lib_deps =
 ## 🛡 Security
 
 - Secure WebSockets (WSS) for encrypted data transfers
-- Edge validation and error handling for robust, secure deployment
+- Optional: API Key encryption with 256-bit AES
+- Supabase DB for secure authentication
 
+## 🚫 Limitations
+
+- Limited to upto 10 minutes of uninterrupted conversations
+- Edge server stops when wall clock time is exceeded
 
 ## 🤝 Contributing
 
