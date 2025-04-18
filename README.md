@@ -1,4 +1,4 @@
-# 🚀 ElatoAI: Realtime AI Speech for ESP32
+# 🪄 ElatoAI: Realtime AI Speech for ESP32
 
 Realtime AI Speech powered by OpenAI Realtime API, ESP32, Secure WebSockets, and Deno Edge Functions for >10-minute uninterrupted global conversations
 
