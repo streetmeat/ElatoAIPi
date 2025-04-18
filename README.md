@@ -28,9 +28,15 @@ npm run dev
 3. Add your ESP32-S3 Device MAC Address to the Settings page in the NextJS Frontend. This links your device to your account.
 To find your ESP32-S3 Device's MAC Address, build and upload `test/print_mac_address_test.cpp` using PlatformIO.
 
-4. Add your OpenAI API Key in the `server-deno/.env` and `frontend-nextjs/.env.local` file. ([See the Deno server README](server-deno/README.md))
+4. Add your OpenAI API Key in the `server-deno/.env` and `frontend-nextjs/.env.local` file.
 ```
-OPENAI_API_KEY=your_openai_api_key
+OPENAI_API_KEY=<your_openai_api_key>
+```
+
+5. Start the Deno server. ([See the Deno server README](server-deno/README.md))
+```bash
+cd server-deno
+deno run -A --env-file=.env main.ts
 ```
 
 5. Set up your ESP32 Arduino Client. ([See the ESP32 README](firmware-arduino/README.md)) On PlatformIO, first `Build` the project, then `Upload` the project to your ESP32.

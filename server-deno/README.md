@@ -11,18 +11,7 @@ This directory contains the WebSocket server implementation for Elato AI, built 
 
 ### Local Development
 
-1. **Find your local IP address**:
-   - View your Wifi IP when you click on Wifi Settings > Your Wifi Network > Details, OR 
-   - On macOS/Linux: Open Terminal and run `ifconfig`
-   - On Windows: Open Command Prompt and run `ipconfig`
-   - Look for your active network interface (WiFi: `en0` on Mac, `wlan0` on Linux, `Wireless LAN adapter Wi-Fi` on Windows)
-   - Note the IP address (e.g., `192.168.1.100`)
-
-2. **Update firmware configuration**:
-   - In the firmware project, set `DEV_MODE` in Config.cpp
-   - Update the WebSocket server IP to your local IP address
-
-3. **Start the server**:
+1. **Start the server**:
    ```bash
    # Navigate to the server-deno directory
    cd server-deno
@@ -31,7 +20,7 @@ This directory contains the WebSocket server implementation for Elato AI, built 
    deno run -A --env-file=.env main.ts
    ```
 
-4. **Verify the server**:
+2. **Verify the server**:
    - The server should be running on port 8000 (default)
    - You should see a message confirming the server is listening
 
