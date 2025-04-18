@@ -13,6 +13,12 @@ import { createClient } from "@/utils/supabase/client";
 import React, { useCallback } from "react";
 import { doesUserHaveADevice, updateDevice } from "@/db/devices";
 import { useToast } from "@/components/ui/use-toast";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+    TooltipProvider,
+  } from "@/components/ui/tooltip";
 
 interface AppSettingsProps {
     selectedUser: IUser;
@@ -155,11 +161,23 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                     <Label className="text-sm font-medium text-gray-700">
                             Register your device
                         </Label>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-gray-200 text-gray-600 text-xs hover:bg-gray-300">
+                              ?
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>For simplicity, you can register your ESP32 MAC address without the colons</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <div 
                             className={`rounded-full flex-shrink-0 h-2 w-2 ${
                                 isConnected ? 'bg-green-500' : 'bg-amber-500'
                             }`} 
-                        />                    </div>
+                        />    
+
+                        </div>
                         
                         <div className="flex flex-row items-center gap-2 mt-2">
                             <Input
