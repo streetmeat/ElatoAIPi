@@ -10,6 +10,7 @@ import {
     BookOpen,
     Blocks,
     Gamepad2,
+    Cpu,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -22,8 +23,8 @@ DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { FaDiscord, FaGithub } from "react-icons/fa";
-import { User } from "@supabase/supabase-js";
 import {
+    businessDemoLink,
     discordInviteLink,
     feedbackFormLink,
     githubPublicLink,
@@ -108,7 +109,7 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-                className="w-56 p-2 sm:mt-2 rounded-lg"
+                className="w-60 p-2 sm:mt-2 rounded-lg"
                 side="bottom"
                 align="end"
             >
@@ -120,6 +121,16 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                 <DropdownMenuGroup>
                     {user ? <LoggedInItems /> : <LoggedOutItems />}
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        <Link
+                            href={businessDemoLink}
+                            passHref
+                            className="flex flex-row gap-2 w-full"
+                        >
+                            <CalendarCheck size={ICON_SIZE} />
+                            <span>Business Demo</span>
+                        </Link>
+                    </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuItem>
                     <Link
@@ -131,7 +142,6 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                     >
                         <FaGithub size={ICON_SIZE} />
                         <span>GitHub</span>
-                       
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -157,24 +167,44 @@ export function NavbarDropdownMenu({ user, stars }: NavbarMenuButtonProps) {
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <Link
-                    href="/products"
-                    passHref
-                    className="flex rounded-lg flex-row gap-2 items-center w-full bg-amber-100 dark:bg-amber-900/40 px-2 py-1 text-amber-800 dark:text-amber-200 hover:bg-yellow-100 dark:hover:bg-amber-900/60 transition-colors"
-                >
-                    <Box
-                        size={ICON_SIZE}
-                        className="text-amber-600 dark:text-amber-400"
-                    />
-                    <div className="flex flex-col">
-                        <span className="font-medium text-sm text-amber-900 dark:text-amber-200">
-                            Buy Now
-                        </span>
-                        <span className="text-xs text-amber-600 dark:text-amber-400">
-                            Elato AI Toy
-                        </span>
-                    </div>
-                </Link>
+                <div className="flex flex-row gap-2">
+    <Link
+        href="/products"
+        passHref
+        className="flex rounded-lg flex-row gap-2 items-center flex-1 bg-amber-100 dark:bg-amber-900/40 px-2 py-2 text-amber-800 dark:text-amber-200 hover:bg-yellow-100 dark:hover:bg-amber-900/60 transition-colors"
+    >
+        <Box
+            size={ICON_SIZE}
+            className="text-amber-600 dark:text-amber-400"
+        />
+        <div className="flex flex-col items-center">
+            <span className="font-medium text-xs text-amber-900 dark:text-amber-200">
+                AI Device
+            </span>
+            <span className="text-xs text-amber-600 dark:text-amber-400">
+                Buy Now
+            </span>
+        </div>
+    </Link>
+    <Link
+        href="/products/ai-devkit"
+        passHref
+        className="flex rounded-lg flex-row gap-2 items-center flex-1 bg-blue-100 dark:bg-blue-900/40 px-2 py-2 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors"
+    >
+        <Cpu
+            size={ICON_SIZE}
+            className="text-blue-600 dark:text-blue-400"
+        />
+        <div className="flex flex-col items-center">
+            <span className="font-medium text-xs text-blue-900 dark:text-blue-200">
+                AI Devkit
+            </span>
+            <span className="text-xs text-blue-600 dark:text-blue-400">
+                Buy Now
+            </span>
+        </div>
+    </Link>
+</div>
             </DropdownMenuContent>
         </DropdownMenu>
     );
