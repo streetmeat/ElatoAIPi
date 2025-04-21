@@ -13,6 +13,9 @@ Realtime AI Speech powered by OpenAI Realtime API, ESP32, Secure WebSockets, and
 
 </div>
 
+<img src="pcb-design.png" alt="Hardware Setup" width="100%">
+
+
 
 ## 📺 Demo Video
 
