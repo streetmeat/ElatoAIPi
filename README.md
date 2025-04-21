@@ -207,5 +207,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Give a ⭐️ if you found this project interesting :)**
+**If you find this project interesting or useful, drop a GitHub ⭐️. It helps a lot!**
 
