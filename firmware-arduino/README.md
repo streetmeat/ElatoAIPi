@@ -9,7 +9,7 @@ This firmware turns your ESP32 device into a WebSocket audio client for Elato, e
 - I2S MEMS microphone (INMP441 recommended)
 - I2S speaker with amplifier (MAX98357A recommended)
 - Microspeaker
-- Button/Touch sensor and LED (optional but recommended)
+- Button/Touch sensor and RGB LED (optional but recommended)
 
 ### Pin Connections
 

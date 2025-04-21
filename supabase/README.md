@@ -1,5 +1,9 @@
 # Supabase Setup and Usage Guide
 
+## Prerequisites for running Supabase:
+- Docker Desktop (or Docker Engine + Docker Compose on Linux)
+- Supabase CLI
+
 ## Installation
 
 1. **Install Supabase CLI**
