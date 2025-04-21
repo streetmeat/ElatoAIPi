@@ -101,6 +101,7 @@ ElatoAI consists of three main components:
 11. **User Authentication**: Secure user authentication and authorization.
 12. **Conversations with WebRTC and Websockets**: Talk to your AI with WebRTC on the NextJS webapp and with websockets on the ESP32.
 13. **Volume Control**: Control the volume of the ESP32 speaker from the NextJS webapp.
+14. **Realtime Transcripts**: The realtime transcripts of your conversations are stored in the Supabase DB.
 
 ## 🛠 Tech Stack
 
@@ -172,12 +173,12 @@ lib_deps =
 - ⏳ **Uninterrupted Conversations**: Up to 10 minutes continuous conversations
 - 🌎 **Global Availability**: Optimized with edge computing with Deno
 
-
 ## 🛡 Security
 
 - Secure WebSockets (WSS) for encrypted data transfers
 - Optional: API Key encryption with 256-bit AES
 - Supabase DB for secure authentication
+- Supabase RLS for all tables
 
 ## 🚫 Limitations
 
