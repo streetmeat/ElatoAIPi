@@ -6,7 +6,7 @@ Realtime AI Speech powered by OpenAI Realtime API, ESP32, Secure WebSockets, and
 <div align="center">
 
 [![Discord Follow](https://dcbadge.vercel.app/api/server/KJWxDPBRUj?style=flat)](https://discord.gg/KJWxDPBRUj)
-[![License: GPLv3](https://img.shields.io/badge/license-GPLv3-blue)](https://www.gnu.org/licenses/gpl-3.0.en.html)&ensp;&ensp;&ensp;
+[![License: GPLv3](https://img.shields.io/badge/license-MIT-blue)](https://www.gnu.org/licenses/gpl-3.0.en.html)&ensp;&ensp;&ensp;
 ![Node.js](https://img.shields.io/badge/Node.js-22.13.0-yellow.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.7-brightgreen.svg)
 ![React](https://img.shields.io/badge/React-18.2.0-blue.svg)
