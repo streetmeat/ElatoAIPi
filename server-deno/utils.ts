@@ -10,15 +10,17 @@ export const authenticateUser = async (
 ): Promise<IUser> => {
     try {
         const jwtSecret = Deno.env.get("JWT_SECRET");
-        console.log("jwtSecret", jwtSecret);
 
         if (!jwtSecret) throw new Error("JWT_SECRET not configured");
+
+        console.log("jwtSecret", jwtSecret);
         const secretBytes = new TextEncoder().encode(jwtSecret);
+        console.log("secretBytes", secretBytes);
         const payload = await jose.jwtVerify(authToken, secretBytes);
+        console.log("payload", payload);
 
         const { payload: { email } } = payload;
         const user = await getUserByEmail(supabaseClient, email as string);
-        console.log("user", user);
         return user;
     } catch (error: any) {
         throw new Error(error.message || "Failed to authenticate user");
