@@ -97,7 +97,7 @@ export default async function LandingPage() {
                         <Image src="/logos/arduino.png" alt="Arduino" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
                       </a>
                       <a href="https://espressif.com" target="_blank" rel="noopener noreferrer" className="transition-all">
-                        <Image src="/logos/espressif.png" alt="Espressif ESP32" width={100} height={24} style={{ height: '24px', width: 'auto' }} />
+                        <Image src="/logos/espressif.png" alt="Espressif ESP32" width={100} height={24} style={{ height: '36px', width: 'auto' }} />
                       </a>
                       <a href="https://platformio.org" target="_blank" rel="noopener noreferrer" className="transition-all">
                         <Image src="/logos/platformio.png" alt="PlatformIO" width={100} height={24} style={{ height: '36px', width: 'auto' }} />

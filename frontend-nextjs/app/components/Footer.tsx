@@ -38,8 +38,7 @@ export default function Footer() {
                     </Button>
                 </a>
                 <Label className={`font-normal text-xs text-gray-500`}>
-                    Elato AI © {new Date().getFullYear()} All rights
-                    reserved.
+                   Made with ❤️ by Elato AI © {new Date().getFullYear()}
                 </Label>
             </div>
             {/* <Separator orientation="vertical" /> */}
@@ -77,20 +76,6 @@ export default function Footer() {
                         </Button>
                     </Link>
                 </div>
-
-                <a
-                    href="/privacy"
-                    className={`font-normal underline text-gray-500 text-xs`}
-                >
-                    Privacy Policy
-                </a>
-
-                <a
-                    href="/terms"
-                    className={`font-normal underline text-gray-500 text-xs`}
-                >
-                    Terms of Service
-                </a>
             </div>
 
             {/* <ThemeSwitcher /> */}

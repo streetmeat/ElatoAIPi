@@ -36,7 +36,7 @@ This firmware turns your ESP32 device into a WebSocket audio client for Elato, e
 
 1. Install Visual Studio Code and the PlatformIO extension
 2. Clone this repository
-3. Open the project folder in PlatformIO
+3. Open the project folder in PlatformIO. `Open > Open Project > firmware-arduino`
 4. Edit `src/Config.cpp` with your server details:
    - If using locally: Set your computer's IP address in `ws_server` and `backend_server`
    - If using production: Ensure proper certificates are set
