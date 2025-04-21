@@ -100,6 +100,7 @@ ElatoAI consists of three main components:
 10. **Device Management**: Register and manage your devices.
 11. **User Authentication**: Secure user authentication and authorization.
 12. **Conversations with WebRTC and Websockets**: Talk to your AI with WebRTC on the NextJS webapp and with websockets on the ESP32.
+13. **Volume Control**: Control the volume of the ESP32 speaker from the NextJS webapp.
 
 ## 🛠 Tech Stack
 
