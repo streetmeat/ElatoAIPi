@@ -38,7 +38,6 @@ npm install
 
 # Set your environment variables
 cp .env.example .env.local
-# NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 # NEXT_PUBLIC_SUPABASE_ANON_KEY=<your_supabase_anon_key>
 # OPENAI_API_KEY=<your_openai_api_key>
 
@@ -61,7 +60,6 @@ cd server-deno
 
 # Set your environment variables
 cp .env.example .env
-# NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 # NEXT_PUBLIC_SUPABASE_ANON_KEY=<your_supabase_anon_key>
 # OPENAI_API_KEY=<your_openai_api_key>
 
