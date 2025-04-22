@@ -13,6 +13,10 @@
 #include <Preferences.h>
 #include <Config.h>
 
+// Add these near the top of Config.cpp where other global variables are defined
+const char *ssid_peronal = "YourWiFiSSID"; 
+const char *password_personal = "YourWiFiPassword";
+
 bool isDeviceRegistered() {
   if (!authTokenGlobal.isEmpty()) {
     return true;

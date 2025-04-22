@@ -3,7 +3,12 @@
 #include <driver/rtc_io.h>
 #include "LEDHandler.h"
 #include "Config.h"
+// Remove SPIFFS include for ESP32S3
+#ifdef XIAO_ESP32S3
+// SPIFFS is not supported on ESP32S3
+#else
 #include "SPIFFS.h"
+#endif
 #include "WifiManager.h"
 #include <driver/touch_sensor.h>
 #include "Button.h"
@@ -19,6 +24,22 @@
 AsyncWebServer webServer(80);
 WIFIMANAGER WifiManager;
 esp_err_t getErr = ESP_OK;
+
+// Initialize file system only for non-ESP32S3 boards
+bool initializeFileSystem() {
+#ifndef XIAO_ESP32S3
+    // ESP32S3 has issues with the LittleFS/SPIFFS implementation
+    if (!SPIFFS.begin()) {
+        Serial.println("SPIFFS initialization failed!");
+        return false;
+    }
+    Serial.println("SPIFFS initialized successfully!");
+    return true;
+#else
+    Serial.println("SPIFFS initialization skipped for ESP32S3");
+    return true;
+#endif
+}
 
 void enterSleep()
 {
@@ -177,25 +198,39 @@ void setupDeviceMetadata() {
 void setup()
 {
     Serial.begin(115200);
-    delay(500);
+    delay(3000); // Wait longer for serial monitor connection
+    Serial.println("--- Starting Setup ---");
 
     // SETUP
+    Serial.println("Setting up device metadata...");
     setupDeviceMetadata();
-    wsMutex = xSemaphoreCreateMutex();    
+    Serial.println("Creating wsMutex...");
+    wsMutex = xSemaphoreCreateMutex();
+    Serial.println("wsMutex created.");
+
+    // Initialize file system (will skip on ESP32S3)
+    Serial.println("Initializing filesystem...");
+    initializeFileSystem();
+    Serial.println("Filesystem initialized.");
 
     // INTERRUPT
     #ifdef TOUCH_MODE
+        Serial.println("Creating Touch Task...");
         xTaskCreate(touchTask, "Touch Task", 4096, NULL, configMAX_PRIORITIES-2, NULL);
+        Serial.println("Touch Task created.");
     #else
+        Serial.println("Setting up Button Interrupt...");
         getErr = esp_sleep_enable_ext0_wakeup(BUTTON_PIN, LOW);
         printOutESP32Error(getErr);
         Button *btn = new Button(BUTTON_PIN, false);
         btn->attachLongPressUpEventCb(&onButtonLongPressUpEventCb, NULL);
         btn->attachDoubleClickEventCb(&onButtonDoubleClickCb, NULL);
         btn->detachSingleClickEvent();
+        Serial.println("Button Interrupt setup done.");
     #endif
 
     // Pin audio tasks to Core 1 (application core)
+    Serial.println("Creating LED Task...");
     xTaskCreatePinnedToCore(
         ledTask,           // Function
         "LED Task",        // Name
@@ -205,7 +240,9 @@ void setup()
         NULL,              // Handle
         1                  // Core 1 (application core)
     );
+    Serial.println("LED Task created.");
 
+    Serial.println("Creating Speaker Task...");
     xTaskCreatePinnedToCore(
         audioStreamTask,   // Function
         "Speaker Task",    // Name
@@ -215,7 +252,9 @@ void setup()
         NULL,              // Handle
         1                  // Core 1 (application core)
     );
+    Serial.println("Speaker Task created.");
 
+    Serial.println("Creating Microphone Task...");
     xTaskCreatePinnedToCore(
         micTask,           // Function
         "Microphone Task", // Name
@@ -225,8 +264,11 @@ void setup()
         NULL,              // Handle
         1                  // Core 1 (application core)
     );
+    Serial.println("Microphone Task created.");
+
 
     // Pin network task to Core 0 (protocol core)
+    Serial.println("Creating Network Task...");
     xTaskCreatePinnedToCore(
         networkTask,       // Function
         "Websocket Task",  // Name
@@ -236,9 +278,49 @@ void setup()
         &networkTaskHandle,// Handle
         0                  // Core 0 (protocol core)
     );
+    Serial.println("Network Task created.");
+
+
+    // Init Bluetooth and create Bluetooth task
+    #ifdef XIAO_ESP32S3
+        // ESP32S3 does not support A2DP Bluetooth audio
+        // Using serial audio output for testing instead
+        Serial.println("Setting up Serial Audio for ESP32S3...");
+
+        // Create a task for serial audio output testing
+        Serial.println("Creating Serial Audio Task...");
+        xTaskCreatePinnedToCore(
+            serialAudioOutputTask, // Function
+            "Serial Audio",        // Name
+            4096,                  // Stack size
+            NULL,                  // Parameters
+            2,                     // Priority
+            NULL,                  // Handle
+            1                      // Core 1 (application core)
+        );
+        Serial.println("Serial Audio Task created.");
+
+        /*
+        setupBluetoothAudio();
+
+        xTaskCreatePinnedToCore(
+            bluetoothAudioTask, // Function
+            "Bluetooth Audio",  // Name
+            4096,               // Stack size
+            NULL,               // Parameters
+            2,                  // Priority
+            NULL,               // Handle
+            1                   // Core 1 (application core)
+        );
+        */
+    #endif
 
     // WIFI
+    Serial.println("Setting up WiFi...");
     setupWiFi();
+    Serial.println("WiFi setup called.");
+
+    Serial.println("--- Setup Complete ---");
 }
 
 void loop(){

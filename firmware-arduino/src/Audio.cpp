@@ -340,3 +340,32 @@ void networkTask(void *parameter) {
     }
 }
 
+// SERIAL AUDIO OUTPUT FOR TESTING (replaces Bluetooth on ESP32S3)
+void serialAudioOutputTask(void *parameter) {
+    uint8_t buffer[512];
+    size_t bytes_read;
+    
+    Serial.println("Starting Serial Audio Output Task for testing...");
+    
+    while (true) {
+        if (deviceState == SPEAKING) {
+            // Read from our audio buffer if available
+            bytes_read = audioBuffer.readArray(buffer, sizeof(buffer));
+            
+            if (bytes_read > 0) {
+                // Send first few bytes to serial for debug
+                Serial.printf("Audio data: %d bytes [", bytes_read);
+                for (int i = 0; i < min(16, (int)bytes_read); i++) {
+                    Serial.printf("%02X ", buffer[i]);
+                }
+                Serial.println("]");
+            }
+        }
+        
+        // Small delay to prevent CPU hogging
+        vTaskDelay(5 / portTICK_PERIOD_MS);
+    }
+    
+    vTaskDelete(NULL);
+}
+

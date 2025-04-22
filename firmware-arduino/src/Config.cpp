@@ -17,22 +17,22 @@ bool factory_reset_status = false;
  *
  * Development Mode (find your local IP address using ifconfig):
  *   - WebSocket: Your local IP (e.g., 192.168.1.100:8000)
- *   - Backend: Your local IP (e.g., 192.168.1.100:3000)
+ *   - Backend: Your local IP (e.g., 192.168.1.100:3002)
  *   - No SSL certificates required
  *
  * Production Mode:
  *   - WebSocket: <your-websocket-server>.deno.dev (port 443)
- *   - Backend: <your-vercel-backend-server> (port 3000)
+ *   - Backend: <your-vercel-backend-server> (port 3002)
  *   - Uses pre-configured SSL certificates (set in Config.cpp)
  */
 
 #ifdef DEV_MODE
-const char *ws_server = "10.2.1.136";
+const char *ws_server = "192.168.50.243";  // Raspberry Pi IP address
 const uint16_t ws_port = 8000;
 const char *ws_path = "/";
 // Backend server details 
-const char *backend_server = "10.2.1.136";
-const uint16_t backend_port = 3000;
+const char *backend_server = "192.168.50.243";  // Raspberry Pi IP address
+const uint16_t backend_port = 3002;
 
 #else
 // PROD
@@ -41,7 +41,7 @@ const uint16_t ws_port = 443;
 const char *ws_path = "/";
 // Backend server details 
 const char *backend_server = "www.elatoai.com";
-const uint16_t backend_port = 3000;
+const uint16_t backend_port = 3002;
 
 #endif
 
@@ -72,6 +72,32 @@ const int I2S_SD_OUT = 10;
 
 const gpio_num_t BUTTON_PIN = GPIO_NUM_2; // Only RTC IO are allowed - ESP32 Pin example
 
+#endif
+
+#ifdef XIAO_ESP32S3
+// XIAO ESP32S3 pin definitions
+// LED pins for the XIAO
+const int BLUE_LED_PIN = 10;    // Using the orange LED on the XIAO ESP32S3
+const int RED_LED_PIN = 11;     // Not available on XIAO, using D11
+const int GREEN_LED_PIN = 12;   // Not available on XIAO, using D12
+
+// I2S Microphone pins for the XIAO ESP32S3
+const int I2S_SD = 2;      // D2 pin 
+const int I2S_WS = 3;      // D3 pin
+const int I2S_SCK = 4;     // D4 pin
+
+// I2S Speaker pins for the XIAO ESP32S3
+const int I2S_WS_OUT = 5;   // D5 pin
+const int I2S_BCK_OUT = 6;  // D6 pin
+const int I2S_DATA_OUT = 7; // D7 pin
+const int I2S_SD_OUT = 8;   // D8 pin
+
+// Button pin - GPIO2 is Touch Pin 2 on the XIAO ESP32S3
+const gpio_num_t BUTTON_PIN = GPIO_NUM_2;
+
+// The XIAO ESP32S3 has 14 pins in total (D0-D14)
+// Pins D0 and D1 are reserved for USB/Serial
+// You can adjust these pin assignments if needed for your specific connections
 #endif
 
 const char *Vercel_CA_cert = R"EOF(

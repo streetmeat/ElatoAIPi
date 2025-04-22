@@ -60,10 +60,11 @@ extern const uint32_t SAMPLE_RATE;
 // ---------- Development ------------
 #define DEV_MODE
 #define TOUCH_MODE
+// #define XIAO_ESP32S3           // Uncomment this to use XIAO ESP32S3 -- Defined in platformio.ini build_flags
+// #define USE_NORMAL_ESP32     // Comment this out when using XIAO ESP32S3
+// #define USE_BLUETOOTH_AUDIO  // Comment this out for ESP32S3 as it does not support A2DP
 
 // ----------------- Pin Definitions -----------------
-#define USE_NORMAL_ESP32
-
 extern const int BLUE_LED_PIN;
 extern const int RED_LED_PIN;
 extern const int GREEN_LED_PIN;

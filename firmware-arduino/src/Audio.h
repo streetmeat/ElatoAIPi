@@ -1,4 +1,3 @@
-
 #include "Print.h"
 #include "Config.h"
 #include "AudioTools.h"
@@ -44,6 +43,9 @@ void networkTask(void *parameter);
 // AUDIO OUTPUT
 unsigned long getSpeakingDuration();
 void audioStreamTask(void *parameter);
+
+// SERIAL AUDIO OUTPUT FOR TESTING
+void serialAudioOutputTask(void *parameter);
 
 // AUDIO INPUT
 void micTask(void *parameter);
