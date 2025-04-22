@@ -1,4 +1,4 @@
-# 🪄 ElatoAI: Realtime AI Speech for ESP32
+# 🚀 ElatoAI: Realtime AI Speech for ESP32
 
 Realtime AI Speech powered by OpenAI Realtime API, ESP32, Secure WebSockets, and Deno Edge Functions for >10-minute uninterrupted global conversations
 
@@ -13,7 +13,7 @@ Realtime AI Speech powered by OpenAI Realtime API, ESP32, Secure WebSockets, and
 
 </div>
 
-## 📺 Demo Video
+## Demo Video
 
 https://github.com/user-attachments/assets/aa60e54c-5847-4a68-80b5-5d6b1a5b9328
 
@@ -78,7 +78,7 @@ deno run -A --env-file=.env main.ts
 
 8. Now you can talk to your AI Character!
 
-## 📌 Project Architecture
+## Project Architecture
 
 ElatoAI consists of three main components:
 
@@ -130,7 +130,7 @@ flowchart TD
 ```
 
 
-## 📂 Project Structure
+## Project Structure
 
 ```mermaid
 graph TD
@@ -201,11 +201,11 @@ We welcome contributions
 - Open a PR
 
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-🎉 **Give a ⭐️ if you found this project interesting :)**
+**If you find this project interesting or useful, drop a GitHub ⭐️. It helps a lot!**
 
