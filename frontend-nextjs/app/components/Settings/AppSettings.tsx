@@ -70,18 +70,6 @@ const AppSettings: React.FC<AppSettingsProps> = ({
     };
 
     const onSave = async (values: any, userType: "doctor" | "user") => {
-        console.log("onSave", values, userType);
-       if (userType === "doctor") {
-        await updateUser(
-            supabase,
-            {
-                user_info: {
-                    user_type: userType,
-                    user_metadata: values,
-                },
-            },
-            selectedUser!.user_id);
-    } else {
         await updateUser(
             supabase,
             {
@@ -94,7 +82,6 @@ const AppSettings: React.FC<AppSettingsProps> = ({
                 },  
             },
             selectedUser!.user_id);
-    }
     toast({
         description: "Your prefereces have been saved!",
     });

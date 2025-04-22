@@ -182,7 +182,7 @@ lib_deps =
 - Supabase RLS for all tables
 
 ## 🚫 Limitations
-
+- 3-4s Cold start time while connecting to edge server
 - Limited to upto 10 minutes of uninterrupted conversations
 - Edge server stops when wall clock time is exceeded
 - No speech interruption detection on ESP32
