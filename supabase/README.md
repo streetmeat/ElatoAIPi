@@ -62,6 +62,14 @@ View a live chart of the tables and their relationships [here](http://localhost:
 3. Apply to local database: `supabase migration up`
 4. Push changes to production when ready
 
+## Deploying to your own supabase instance
+
+1. Create a new supabase project
+2. Copy the supabase url and anon key
+3. Paste them in the `.env` and `.env.local` file in the root of the project
+4. Link the project to the new supabase instance: `supabase link --project-ref <project_ref>`
+5. Run `supabase db push --include-seed` to push the changes to the local database and seed the database with the data in `supabase/seed.sql`
+
 ## Stopping Supabase
 
 ```bash
